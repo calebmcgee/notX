@@ -6,16 +6,21 @@
     <title>Login</title>
 </head>
 <body>
-    <h1></h1>
+    <div>
 
-    <form action="/login" method="POST">
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email">
-
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
-
-        <button type="submit">Login</button>
-    </form>
+    </div>
+    <div>
+        <h1>NotX</h1>
+        <form action="/login" method="POST">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+            <button type="submit">Login</button>
+        </form>
+        <form action="/login/createAccount" method="POST">
+            <button type="submit">Create Account</button>
+        </form>
+    </div>
 </body>
 </html>
