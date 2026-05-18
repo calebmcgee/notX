@@ -14,6 +14,8 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({extended: true}));
 
 app.use("/", loginRouter);
+app.use("/login", loginRouter);
+
 
 app.listen(PORT, (error) => {
     if (error){

@@ -10,15 +10,23 @@
 
     </div>
     <div>
-        <h1>NotX</h1>
+        <h1><%= title %></h1>
+        
         <form action="/login" method="POST">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
+            <div class="loginLabelDiv">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email">
+            </div>
+            <div class="loginLabelDiv">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password">
+            </div>
             <button type="submit">Login</button>
         </form>
-        <form action="/login/createAccount" method="POST">
+        
+        <%- include('partials/errors'); %>
+
+        <form action="/login/signUp" method="GET">
             <button type="submit">Create Account</button>
         </form>
     </div>

@@ -6,8 +6,9 @@ module.exports = new Pool ({
 });
 
 /* To load .env variables in shell session and run schema.sql, creating the db structure
-
+CREATE DATABASE ---
 export $(cat .env| xargs)
+echo $DATABASE_URL
 psql $DATABASE_URL -f src/db/schema.sql
 
 */
