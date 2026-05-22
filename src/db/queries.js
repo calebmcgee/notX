@@ -22,7 +22,7 @@ async function getUser(email){
         SELECT * FROM users 
         WHERE id = ($1)`, [email]
     );
-    return rows;
+    return rows[0];
 }
 
 //editUser

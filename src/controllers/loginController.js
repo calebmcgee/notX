@@ -47,17 +47,24 @@ const postSignUp = [
         await db.createUser(name, email, password);
         res.redirect("/login");
 }];
-/*
+
 passport.use(
     new LocalStrategy(async (email, password, done) => {
         try {
-            const { rows } = await db.getUser(email);
+            const user = await db.getUser(email);
+            if(!user){
+                return done(null, false, { message: "Incorrect email"});
+            }
+            if(user.password != password){
+                return done(null, false, { message: "Incorrect password"});
+            }
+            return done(null, user);
         } catch(error) {
             return next(error);
         }
     })
 )
-*/
+
 module.exports = {
     renderLogin,
     renderSignUp,
