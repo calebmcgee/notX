@@ -1,23 +1,57 @@
 const {body, validationResult, matchedData} = require("express-validator");
 const db = require('../db/queries');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const passport = require('../config/passport');
+
+/* LOGIN */
 
 async function renderLogin(req, res){
     res.render("login", { 
-                title: "Login",
-                //users: await db.getUsers(),
+                title: "Happening Now",
+                user: req.user,
             });
 }
 
-async function renderSignUp(req, res){
-    res.render("signUp", { 
-                title: "Sign Up",
-                //users: await db.getUsers(),
-            });
-}
+const validateLogin = [
+    body("email").trim()
+    .notEmpty().withMessage(`Must enter email.`)
+    .isEmail().withMessage(`Must be valid email format.`),
+    body("password").trim()
+    .notEmpty().withMessage(`Must enter password.`)
+];
 
-const validateUser = [
+
+
+const postLogin = [
+    validateLogin,
+    async (req, res, next) => {
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            return res.status(400).render("login", {
+                title: "Happening Now",
+                errors: errors.array()
+            });
+        }
+        next();
+    },
+    passport.authenticate("local", {
+            successRedirect: '/home',
+            failureRedirect: '/'
+    })
+];
+
+/* LOGOUT */
+
+async function logout(req, res, next){
+    req.logout((err)=>{
+        if(err){
+            return next(err);
+        }
+        res.redirect('/');
+    })
+}
+/* SIGNUP */
+
+const validateSignUp = [
     body('name').trim()
     .notEmpty().withMessage(`Must enter name.`)
     .isAlpha().withMessage(`Must only contain letters.`),
@@ -32,13 +66,12 @@ const validateUser = [
 ];
 
 const postSignUp = [
-    validateUser,
+    validateSignUp,
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()){
-                return res.status(400).render("signUp", {
-                title: "Sign Up",
-                //users: await db.getUsers(),
+                return res.status(400).render("login", {
+                title: "Happening Now",
                 errors: errors.array()
             });
         }
@@ -48,25 +81,10 @@ const postSignUp = [
         res.redirect("/login");
 }];
 
-passport.use(
-    new LocalStrategy(async (email, password, done) => {
-        try {
-            const user = await db.getUser(email);
-            if(!user){
-                return done(null, false, { message: "Incorrect email"});
-            }
-            if(user.password != password){
-                return done(null, false, { message: "Incorrect password"});
-            }
-            return done(null, user);
-        } catch(error) {
-            return next(error);
-        }
-    })
-)
 
 module.exports = {
     renderLogin,
-    renderSignUp,
+    postLogin,
+    logout,
     postSignUp
 };

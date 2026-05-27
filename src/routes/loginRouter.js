@@ -1,20 +1,16 @@
 const { Router } = require('express');
-const { renderLogin, renderSignUp, postSignUp } = require('../controllers/loginController');
-const { render } = require('ejs');
+const { renderLogin, postLogin, logout, postSignUp } = require('../controllers/loginController');
 const loginRouter = Router();
-
+const { checkAuth } = require('../middleware/checkAuth'); 
 
 loginRouter.get("/", renderLogin);
 
-loginRouter.get("/login", renderLogin);
+loginRouter.post("/login", postLogin);
 
-loginRouter.post("/login", renderLogin);
+loginRouter.post("/logout", logout);
 
-loginRouter.get("/signUp", renderSignUp);
+loginRouter.post("/signUp", postSignUp);
 
-loginRouter.post("/login/signUp", postSignUp);
-
-//loginRouter.post("/login", getUsers);
 
 module.exports = loginRouter;
 

@@ -2,10 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const path = require('node:path');
 const session = require('express-session');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const passport = require('./config/passport');
 
 const loginRouter = require('./routes/loginRouter');
+const homeRouter = require('./routes/homeRouter');
 
 const app = express();
 const PORT = 3000;
@@ -19,13 +19,14 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: false}));
 app.use(passport.session());
 app.use(express.urlencoded({extended: true}));
 
+
 app.use("/", loginRouter);
-app.use("/login", loginRouter);
+app.use("/home", homeRouter);
 
 
-app.listen(PORT, (error) => {
-    if (error){
-        throw error;
+app.listen(PORT, (err) => {
+    if (err){
+        throw err;
     }
     console.log(`App listening on port ${PORT}.`);
 });

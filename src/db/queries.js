@@ -18,18 +18,24 @@ async function getAllUsers(){
 
 //getUser
 async function getUser(email){
-    const { rows } = pool.query(`
+    const { rows } = await pool.query(`
         SELECT * FROM users 
-        WHERE id = ($1)`, [email]
+        WHERE email = $1`, [email]
     );
     return rows[0];
 }
 
-//editUser
+//getUserById
+async function getUserById(id) {
+    const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+    return rows[0];
+}
+
+/*editUser
 
 async function editUser(id, email, password) {
     
-}
+}*/
 
 /* */
 
@@ -39,5 +45,5 @@ module.exports = {
     createUser,
     getAllUsers,
     getUser,
-    editUser
+    getUserById,
 }

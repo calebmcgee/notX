@@ -4,35 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <div>
 
-    </div>
-    <div>
-        <h1><%= title %></h1>
-        
-        <form action="/login" method="POST">
-            <div class="loginLabelDiv">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name">
-            </div>
-            <div class="loginLabelDiv">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email">
-            </div>
-            <div class="loginLabelDiv">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password">
-            </div>
-            <button type="submit">Login</button>
-        </form>
-        
-        <%- include('partials/errors'); %>
+    <div class="login-container">
+        <div>
+            <h1><%= title %></h1>
 
-        <form action="/login/signUp" method="GET">
-            <button type="submit">Create Account</button>
-        </form>
+            <div>
+                <form action="/login" method="POST" class="authForm">
+                    <h2>Login</h2>
+                    <div class="loginLabelDiv">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email">
+                    </div>
+                    <div class="loginLabelDiv">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <%- include('partials/errors'); %>
+            </div>
+
+            <button onclick="openSignUp()">Sign Up</button>
+            <div id="signUpModal" class="modal hidden" >
+                <div class="modal-content">
+                    <button onclick="closeModals()">Close</button>
+                    <form action="/signUp" method="POST" class="authForm">
+                        <h2>Sign Up</h2>
+                        <div class="loginLabelDiv">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name">
+                        </div>
+                        <div class="loginLabelDiv">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email">
+                        </div>
+                        <div class="loginLabelDiv">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password">
+                        </div>
+                        <button type="submit">Sign Up</button>
+                    </form>
+                    <%- include('partials/errors'); %>
+                </div>
+            </div>
+        </div>
+        <div class="loginImageContainer">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ0L8L8njUWshrMz0DlBEEn1-CoRmguVDJjQ&s" alt="">
+        </div>
     </div>
+
+    <script>
+        const signUpModal = document.querySelector("#signUpModal");
+
+        function closeModals() {
+            signUpModal.classList.add("hidden");
+        }
+
+        function openSignUp() {
+            closeModals();
+            signUpModal.classList.remove("hidden");
+        }
+    </script>
 </body>
 </html>
