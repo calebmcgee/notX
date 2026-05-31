@@ -1,6 +1,7 @@
 const db = require('../db/queries');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcryptjs');
 
 passport.use(
     new LocalStrategy(
@@ -11,7 +12,8 @@ passport.use(
                 if(!user){
                     return done(null, false, { message: "Incorrect email/password combination"});
                 }
-                if(user.password != password){
+                const match = await bcrypt.compare(password, user.password);
+                if(!match){
                     return done(null, false, { message: "Incorrect email/password combination"});
                 }
                 return done(null, user);

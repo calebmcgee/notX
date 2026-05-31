@@ -1,7 +1,7 @@
 const {body, validationResult, matchedData} = require("express-validator");
 const db = require('../db/queries');
 const passport = require('../config/passport');
-
+const bcrypt = require('bcryptjs');
 /* LOGIN */
 
 async function renderLogin(req, res){
@@ -67,7 +67,7 @@ const validateSignUp = [
 
 const postSignUp = [
     validateSignUp,
-    async (req, res) => {
+    async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()){
                 return res.status(400).render("login", {
@@ -75,10 +75,15 @@ const postSignUp = [
                 errors: errors.array()
             });
         }
-        const { name, email, password } = matchedData(req);
-        console.log(`name: ${name}, email: ${email}, password: ${password}`);
-        await db.createUser(name, email, password);
-        res.redirect("/login");
+        try {
+            const { name, email, password } = matchedData(req);
+            const hashedPassword = await bcrypt.hash(password, 10);
+            await db.createUser(name, email, hashedPassword);
+            res.redirect("/");
+        } catch (err) {
+            next(err);
+        }
+
 }];
 
 
