@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+
+</head>
+<body>
+    <div class="container">
+        <%- include('partials/sidebar') %>
+        <div class="middle" id="profile-content">
+            <div id="profile-bar">
+                <div>Back</div>
+                <div>C</div>
+                <div>Search</div>
+            </div>
+            <div id="profile-banner">
+
+            </div>
+            <div id="profile-info">
+                <div>
+                    <p></p>
+                    <p>Edit Profile</p>
+                </div>
+                <div id="profile-identity">
+                    <p><%= user.name %></p>
+                    <p>@username</p>
+                </div>
+                <div id="profile-following">
+                    <a href="">
+                        <span>0</span>
+                        <span>Following</span>
+                    </a>
+                    <a href="">
+                        <span>0</span>
+                        <span>Followers</span>
+                    </a>
+                </div>
+            </div>
+            <div id="profile-nav">
+                <div><a href="/profile">Posts</a></div>
+                <div><a href="/profile">Replies</a></div>
+                <div><a href="/profile">Media</a></div>
+                <div><a href="/profile">Likes</a></div>
+            </div>
+        </div>
+        <%- include('partials/rightbar') %>
+    </div>
+
+    
+</body>
+</html>
