@@ -30,10 +30,12 @@
 
             <button onclick="openSignUp()">Sign Up</button>
             <div id="signUpModal" class="modal hidden" >
-                <div class="modal-content">
-                    <button onclick="closeModals()">Close</button>
-                    <form action="/signUp" method="POST" class="authForm">
+                <div class="signUp-modal-content">
+                    <div class="modal-header">
+                        <button onclick="closeModals()">Close</button>
                         <h2>Sign Up</h2>
+                    </div>
+                    <form action="/signUp" method="POST" class="authForm">
                         <div class="loginLabelDiv">
                             <label for="name">Name</label>
                             <input type="text" name="name" id="name">

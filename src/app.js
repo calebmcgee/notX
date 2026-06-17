@@ -7,6 +7,7 @@ const passport = require('./config/passport');
 const loginRouter = require('./routes/loginRouter');
 const homeRouter = require('./routes/homeRouter');
 const profileRouter = require('./routes/profileRouter');
+const usersRouter = require('./routes/usersRouter');
 
 const app = express();
 const PORT = 3000;
@@ -24,6 +25,7 @@ app.use(express.urlencoded({extended: true}));
 app.use("/", loginRouter);
 app.use("/home", homeRouter);
 app.use("/profile", profileRouter);
+app.use("/users", usersRouter);
 
 
 app.listen(PORT, (err) => {

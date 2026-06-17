@@ -43,7 +43,7 @@ async function editUser(id, email, password) {
 
 async function followUser(userId, followingId) {
     await pool.query(`
-        INSERT INTO user_following(user_id, following_id) VALUES $1, $2`, [userId, followingId]
+        INSERT INTO user_following(user_id, following_id) VALUES ($1, $2)`, [userId, followingId]
     );
 }
 
@@ -81,9 +81,52 @@ async function getFollowers(userId) {
 
 /* POSTS */
 
-async function createPost(author, content) {
-    
+async function createPost(authorId, content) {
+    await pool.query(`INSERT INTO posts(author, content) VALUES ($1, $2)`, [authorId, content]
+    );
 }
+
+async function deletePost(postId) {
+    const content = "Post Deleted";
+    await pool.query(`
+        UPDATE posts 
+        SET content = $1,
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $2`, [content, postId]
+    );
+
+}
+
+async function getAllPosts(){
+    const { rows } = pool.query(`SELECT * FROM posts`);
+    return rows;
+}
+
+async function getUserPosts(userId) {
+    const { rows } = await pool.query(`
+        SELECT * FROM posts
+        WHERE author = $1`, [userId]
+    );
+    return rows;
+}
+/* LIKES */
+
+async function togglePostLike(userId, postId){
+    const deleted = await pool.query(`
+        DELETE post_likes
+        WHERE user_id = $1
+        AND post_id = $2`, [userId, postId]
+    );
+
+    if(deleted.rowCount === 0){
+        await pool.query(`
+            INSERT INTO post_likes(user_id, post_id) VALUES ($1, $2)`, [userId, postId]
+        );
+    }
+}
+
+/* COMMENTS */
+
 
 module.exports = {
     createUser,
@@ -91,5 +134,12 @@ module.exports = {
     getUser,
     getUserById,
     followUser,
-    unfollowUser
+    unfollowUser,
+    getFollowers,
+    getFollowing,
+    createPost,
+    deletePost,
+    getAllPosts,
+    getUserPosts,
+    togglePostLike
 }

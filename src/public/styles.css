@@ -2,6 +2,7 @@
     box-sizing: border-box;
     padding: 0px;
     margin: 0px;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -47,10 +48,20 @@ body {
     display: none;
 }
 
-.modal-content{
+.modal-header {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.signUp-modal-content{
     height: 500px;
     width: 500px;
+    padding: 20px 30px;
     background: gray;  
+    border-radius: 30px;
 
     display: flex;
     flex-direction: column;
@@ -58,7 +69,22 @@ body {
     gap: 20px;
 }
 
+.createPost-modal-content{
+    width: 500px;
+    padding: 20px 30px;
+    background-color: grey;
+    border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 /* FORMS */
+textarea {
+    resize: none;
+}
+
 .authForm {
     height: 3fr;
 
@@ -68,6 +94,47 @@ body {
     align-items: center;
     gap: 20px;
 }
+
+
+.createPostForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.createLabelDiv {
+    margin: 10px 0px;
+    padding: 10px 0px;
+
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    border-bottom: solid 1px black;
+}
+
+.createPostForm button {
+    padding: 20px;
+    background-color: white;
+
+    font-size: 24px;
+    border: none;
+    border-radius: 30px;
+}
+
+.createPostForm button:hover {
+    background-color: rgba(255, 255, 255, 0.591);
+}
+
+.createPostForm textarea{
+    width: 400px;
+    padding: 10px;
+
+    background-color: inherit;
+    border: none;
+
+    font-size: 20px;
+    color: white;
+}
+
 
 /* TABS CONTAINER */
 .container { 
@@ -96,32 +163,28 @@ body {
     gap: 40px;
 }
 
-#sidebar>div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    gap: 40px;
-}
-
-#sidebar>div>div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
 #sidebar nav {
+    height: 100%;
+    width: 100%;
+    padding: 100px 0px;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 
-nav a, #sidebar-logo, #sidebar-profile {
-    height: 100px;
+nav a{
+    padding: 10px 0px;
+    width: 200px;
+    border-radius: 5px;
+    
+    text-align: center;
     color: white;
     text-decoration: none;
+}
+nav a:hover {
+    background-color: grey;
 }
 
 /* RIGHTBAR*/
