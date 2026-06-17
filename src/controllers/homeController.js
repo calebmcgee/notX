@@ -1,6 +1,5 @@
 const db = require('../db/queries');
 
-
 async function renderHome(req, res) {
     res.render('home', {
         title: 'home',
@@ -8,7 +7,6 @@ async function renderHome(req, res) {
         posts: db.getAllPosts()
     });
 }
-
 
 module.exports = {
     renderHome
