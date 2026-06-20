@@ -12,6 +12,24 @@
         <%- include('partials/sidebar') %>
         <div class="middle" id="home-content">
             <h1><%= title %></h1>
+            <% posts.forEach(post => { %>
+                <div class="post">
+                    <div>PFP</div>
+                    <div class="postInfo">
+                        <div class="postHeader">
+                            <p><%= post.author.name %></p>
+                            <p>Username * <%= post.date%></p>
+                        </div>
+                        <div class="postContent">
+                            <p><%= post.content %></p>
+                        </div>
+                        <div class="postReactions">
+                            <p>Likes: <%= post.likeCount %></p>
+                            <p>Comments: <%= post.commentCount %></p>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
         </div>
         <%- include('partials/rightbar') %>
     </div>

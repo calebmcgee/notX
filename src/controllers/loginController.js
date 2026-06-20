@@ -60,9 +60,9 @@ const validateSignUp = [
     .isEmail().withMessage(`Must be valid email format.`),
     body("password").trim()
     .notEmpty().withMessage(`Must enter password.`)
-    .isLength({min: 8, max: 20}).withMessage(`Must be between 8-20 characters.`)
-    .matches(/[A-Z]/).withMessage("Must include uppercase character.")
-    .matches(/[^A-Za-z0-9]/).withMessage("Must include special character.")
+    .isLength({min: 8, max: 20}).withMessage(`Password must be between 8-20 characters.`)
+    .matches(/[A-Z]/).withMessage("Password must include uppercase character.")
+    .matches(/[^A-Za-z0-9]/).withMessage("Password must include special character.")
 ];
 
 const postSignUp = [

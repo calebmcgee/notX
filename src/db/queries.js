@@ -98,7 +98,7 @@ async function deletePost(postId) {
 }
 
 async function getAllPosts(){
-    const { rows } = pool.query(`SELECT * FROM posts`);
+    const { rows } = await pool.query(`SELECT * FROM posts`);
     return rows;
 }
 
@@ -125,8 +125,22 @@ async function togglePostLike(userId, postId){
     }
 }
 
-/* COMMENTS */
+async function getPostLikes(postId) {
+    const { rows } = pool.query(`
+        SELECT * FROM post_likes 
+        WHERE post_id = $1`, [postId]
+    )
+    return rows;
+}
 
+/* COMMENTS */
+async function getPostComments(postId) {
+    const { rows } = pool.query(`
+        SELECT * FROM comments 
+        WHERE post = $1`, [postId]
+    )
+    return rows;
+}
 
 module.exports = {
     createUser,
@@ -141,5 +155,7 @@ module.exports = {
     deletePost,
     getAllPosts,
     getUserPosts,
-    togglePostLike
+    togglePostLike,
+    getPostLikes,
+    getPostComments
 }
